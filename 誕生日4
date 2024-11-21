@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>じっと画面を見てみてね</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #FFD700, #FFB347, #FF9E4A);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: white;
+      transition: opacity 1s ease-out;
+    }
+
+    .letter {
+      opacity: 0;
+      transform: scale(0);
+      animation: popIn 0.5s ease-out forwards;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    #message {
+      display: none;
+      font-size: 2em;
+      text-align: center;
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      animation: fadeIn 3s ease-in forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="title" id="title"></div>
+  <div id="message">【アラジンのフォトメモリーズ】</div>
+  <script>
+    const titleText = "じっと画面を見てみてね";
+    const titleContainer = document.getElementById('title');
+
+    // 一文字ずつ要素を作成し、順番に表示する
+    titleText.split('').forEach((char, index) => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      span.className = 'letter';
+      span.style.animationDelay = `${index * 0.3}s`;
+      titleContainer.appendChild(span);
+    });
+
+    // 15秒後にタイトルを消してメッセージを表示
+    setTimeout(() => {
+      // タイトルを非表示にする
+      titleContainer.style.opacity = '0';
+
+      // メッセージをゆっくり表示
+      setTimeout(() => {
+        document.getElementById('message').style.display = 'block';
+      }, 1000); // タイトル消滅アニメーションの完了を待つ
+    }, 15000);
+  </script>
+</body>
+</html>
